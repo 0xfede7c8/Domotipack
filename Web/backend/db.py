@@ -60,7 +60,7 @@ class DBManager():
 
     def validate_data(self, data, _id=None, new=False):
         valid = True
-        required_fields = ['ip', 'type']
+        required_fields = ['ip', 'type', 'state']
         for field in required_fields:
             valid = valid and (field in data)
         if not new:
