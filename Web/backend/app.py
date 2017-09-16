@@ -13,11 +13,6 @@ cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 def index():
     return "INDEX"
 
-@app.route('/ws')
-def wb():
-    websocket.emit('event', {'data':42}, broadcast=True)
-    return "WEBSOCKET"
-
 if __name__ == '__main__':
     websocket.init_app(app)
     websocket.run(app, host="0.0.0.0")

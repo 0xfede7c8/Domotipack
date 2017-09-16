@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
-import { fetchDevices, updateDevice, updateAllDevices, URL} from '../reducers/reducer_devices';
+import { fetchDevices, updateDevice, updateAllDevices, URL} from '../../reducers/reducer_devices';
 import  openSocket from 'socket.io-client';
 
 import CircularProgress from 'material-ui/CircularProgress';
-import Light from './devices/device_light';
-import Alarm from './devices/device_alarm';
-
+import Device from './device';
 
 class DevicesList extends Component {
 
@@ -27,23 +25,14 @@ class DevicesList extends Component {
         const devices_list = Object.keys(devices);
         return devices_list.map((id)=>{
             const device = devices[id];
-            switch(device.type){
-                case 'light':
-                    return <Light 
-                                key={device.id} 
-                                device={device}
-                                onStateChange={handleStateChange.bind(this)}
-                            />
-                case 'alarm':
-                    return <Alarm 
-                                key={device.id} 
-                                device={device}
-                                onStateChange={handleStateChange.bind(this)}
-                            />
-                default:
-                    return null
-            }
-        });
+            return (
+                <Device 
+                    key={device.id} 
+                    device={device}
+                    onStateChange={handleStateChange.bind(this)}
+                />
+            );
+       });
     }
     
     render(){

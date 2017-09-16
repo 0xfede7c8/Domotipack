@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import DevicesList from '../containers/devicesList'
+import React from 'react';
+import DevicesList from './devices/devicesList'
 
-class App extends Component {
-  render() {
+export default (props)=>{
     return (
         <div className="container-fluid">
             <div className="row">
@@ -14,7 +13,5 @@ class App extends Component {
             </div>
         </div>
    );
-  }
 }
 
-export default App;

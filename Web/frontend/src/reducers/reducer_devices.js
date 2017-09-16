@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const URL = 'http://localhost:5000';
+export const URL = 'http://192.168.0.15:5000';
 export const URL_API = URL + "/api/devices";
 export const FETCH_DEVICES = 'devices/FETCH_DEVICES';
 export const UPDATE_DEVICE = 'devices/UPDATE_DEVICE';
@@ -10,11 +10,14 @@ export default function(state=null, action) {
     switch(action.type){
 
         case FETCH_DEVICES:
-            const devices_obj = {};
-            action.payload.data.forEach((device) => {
-                devices_obj[device.id] = device;
-            });
-            return devices_obj;
+            if(action.payload.data){
+                const devices_obj = {};
+                action.payload.data.forEach((device) => {
+                    devices_obj[device.id] = device;
+                });
+                return devices_obj;
+            }
+            else return state;
 
         case UPDATE_DEVICE:
             const device = action.payload.data;

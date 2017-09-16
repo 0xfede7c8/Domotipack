@@ -3,10 +3,6 @@ import Slider from 'material-ui/Slider';
 import Toggle from 'material-ui/Toggle';
 
 export default class Light extends Component{
-    constructor(props) {
-        super(props);
-        this.state = this.props.device.state;
-    }
 
     handleSlider(event, new_value){
         const device = this.props.device;
@@ -21,7 +17,6 @@ export default class Light extends Component{
     render(){
         return (
             <div>
-                <h3>LIGHT</h3>
                 <div className="row">
                     <div className="col-md-6">
                         ON/OFF:
