@@ -1,16 +1,80 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import _ from 'lodash';
+import { fetchDevices, updateDevice, updateAllDevices, URL} from '../reducers/reducer_devices';
+import  openSocket from 'socket.io-client';
+
+import CircularProgress from 'material-ui/CircularProgress';
 import Light from './devices/device_light';
 import Alarm from './devices/device_alarm';
 
+
 class DevicesList extends Component {
+
+    componentDidMount(){
+        this.props.fetchDevices();
+        this.websocket = openSocket(URL);
+        this.websocket.on('update_devices',(devices)=>{
+            this.props.updateAllDevices(devices);
+        });
+    }
+
+    renderDevices(){
+        const handleStateChange = _.debounce((term) => {
+            this.props.updateDevice(term)},500);
+        const {devices} = this.props;
+        const devices_list = Object.keys(devices);
+        return devices_list.map((id)=>{
+            const device = devices[id];
+            switch(device.type){
+                case 'light':
+                    return <Light 
+                                key={device.id} 
+                                device={device}
+                                onStateChange={handleStateChange.bind(this)}
+                            />
+                case 'alarm':
+                    return <Alarm 
+                                key={device.id} 
+                                device={device}
+                                onStateChange={handleStateChange.bind(this)}
+                            />
+                default:
+                    return null
+            }
+        });
+    }
+    
     render(){
-        return (
-            <div>
-                <Light/>
-                <Alarm/>
+        if(!this.props.devices){
+            return (
+                <div style={{"margin":"0 auto", "display":"table", "marginTop":"25%"}}>
+                    <CircularProgress size={100} />
+                </div>
+            );
+        }
+        return ( 
+            <div >
+               {  this.renderDevices() }
             </div>
         );
     }
 }
 
-export default DevicesList
+
+function mapStateToProps(state){
+    return {
+        devices : state.devices
+    }
+}
+
+function mapDispatchToProps(dispatch){
+    return bindActionCreators({fetchDevices: fetchDevices,
+                               updateDevice: updateDevice,
+                               updateAllDevices : updateAllDevices},
+                               dispatch);
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(DevicesList)

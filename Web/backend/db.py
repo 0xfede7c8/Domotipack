@@ -6,7 +6,8 @@ class DBManager():
 
     def __init__(self):
         self.db = redis.StrictRedis(host='localhost', port=6379, db=0)
-        self.db.set("id_count",0)
+        if not self.db.get("id_count"):
+            self.db.set("id_count",0)
 
     def new_entry(self, data):
         self.validate_data(data,new=True)
@@ -39,13 +40,13 @@ class DBManager():
         match = "id=%s*"%str(_id)
         keys = self.db.scan(match=match)[1]
         if len(keys) == 1:
-            return self.db.get(keys[0])
+            return json.loads(self.db.get(keys[0]))
 
     def get_by_ip(self, ip):
         match = "*%s*" % ip
         keys = self.db.scan(match=match)[1]
         if len(keys) == 1:
-            return self.db.get(keys[0])
+            return json.loads(self.db.get(keys[0]))
 
     def delete_all(self):
         for k in self.db.keys():
@@ -71,12 +72,19 @@ class DBManager():
             raise Exception
 
     def get_all_devices(self):
+        devices = []
+        keys = self.db.scan(match="id=*")[1]
+        keys.sort()
+        for key in keys:
+            devices.append(json.loads(self.db.get(key)))
+        device = {}
+        """
         devices = {}
         keys = self.db.scan(match="id=*")[1]
         for key in keys:
-            devices[key.split(":")[0].replace("id=","")] = self.db.get(key)
+            devices[key.split(":")[0].replace("id=","")] = json.loads(self.db.get(key))
+        """
         return devices
 
-
 database = DBManager()
-database.delete_all()
+#database.delete_all()

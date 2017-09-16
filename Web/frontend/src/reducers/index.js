@@ -1,9 +1,7 @@
 import { combineReducers } from 'redux';
+import DevicesList from './reducer_devices';
 
-//const rootReducer = combineReducers({
-//
-//});
-function rootReducer(){
-    return {caca:2}
-}
+const rootReducer = combineReducers({
+    devices : DevicesList
+});
 export default rootReducer;
