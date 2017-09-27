@@ -49,7 +49,9 @@ t2.start()
 
 while(True):
 	t = threading.Thread(target=changeState, args=(value,))
-	value = value +5
+	value += 5
+	if value > 100:
+		value = 0
 	t.start()
 	sleep(5)
 
