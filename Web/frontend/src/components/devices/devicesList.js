@@ -20,7 +20,7 @@ class DevicesList extends Component {
 
     renderDevices(){
         const handleStateChange = _.debounce((term) => {
-            this.props.updateDevice(term)},500);
+            this.props.updateDevice(term)},200);
         const {devices} = this.props;
         const devices_list = Object.keys(devices);
         return devices_list.map((id)=>{
@@ -36,7 +36,7 @@ class DevicesList extends Component {
     }
     
     render(){
-        if(!this.props.devices){
+        if(_.isEmpty(this.props.devices)){
             return (
                 <div style={{"margin":"0 auto", "display":"table", "marginTop":"25%"}}>
                     <CircularProgress size={100} />
@@ -59,9 +59,10 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-    return bindActionCreators({fetchDevices: fetchDevices,
-                               updateDevice: updateDevice,
-                               updateAllDevices : updateAllDevices},
+    return bindActionCreators({fetchDevices,
+                               updateDevice,
+                               updateAllDevices
+                               },
                                dispatch);
 }
 

@@ -12,15 +12,20 @@ class DBManager():
     def new_entry(self, data):
         self.validate_data(data,new=True)
         ip = data['ip']
+        """
         old_data = self.get_by_ip(ip)
         if old_data:
             _id = json.loads(old_data)['id']
         else:
             _id = int(self.db.get("id_count"))
             self.db.incr("id_count")
+        """
+        _id = int(self.db.get("id_count"))
+        self.db.incr("id_count")
         data['id'] = _id
         key = "id=%s:%s" % (_id, ip)
         self.db.set(key,json.dumps(data))
+        return _id
         
     def set_by_ip(self, data):
         self.validate_data(data)
@@ -59,6 +64,12 @@ class DBManager():
         if len(keys) == 1:
             return self.db.delete(keys[0])
 
+    def delete_by_id(self, _id):
+        match = "id=%s*"%str(_id)
+        keys = self.db.scan(match=match)[1]
+        if len(keys) == 1:
+            return self.db.delete(keys[0])
+
     def validate_data(self, data, _id=None, new=False):
         valid = True
         required_fields = ['ip', 'type', 'state']
@@ -73,7 +84,7 @@ class DBManager():
 
     def get_all_devices(self):
         devices = []
-        keys = self.db.scan(match="id=*")[1]
+        keys = self.db.keys(pattern="id=*")
         keys.sort()
         for key in keys:
             devices.append(json.loads(self.db.get(key)))
