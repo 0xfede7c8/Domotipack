@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const URL = 'http://192.168.1.12:5000';
+export const URL = 'http://localhost:5000';
 export const URL_API = URL + "/api/devices";
 export const FETCH_DEVICES = 'devices/FETCH_DEVICES';
 export const UPDATE_DEVICE = 'devices/UPDATE_DEVICE';

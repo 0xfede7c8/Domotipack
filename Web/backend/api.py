@@ -33,7 +33,8 @@ def keepalive_beat():
         except:
             database.delete_by_id(device['id'])
             print "fallo la coneccion del socket"
-    websocket.emit('update_devices', database.get_all_devices(), broadcast=True)
+    websocket.emit('update_devices', database.get_all_devices(),
+                    broadcast=True)
 
 beat_scheduler.add_job(keepalive_beat, 'interval', seconds=3)
 
@@ -54,7 +55,8 @@ class Device(Resource):
             device_socket.settimeout(0.5)
             device_socket.connect((json_data['ip'],SOCKET_PORT))
             device_socket.send(json.dumps(json_data))
-            websocket.emit('update_devices', database.get_all_devices(), broadcast=True)
+            websocket.emit('update_devices', database.get_all_devices(), 
+                            broadcast=True)
             return database.get_all_devices()
         except:
             database.set_by_id(data=old_device,_id = int(device_id))
@@ -69,7 +71,8 @@ class DevicesList(Resource):
         json_data = request.get_json(force=True)
         try:
             _id = database.new_entry(json_data)
-            websocket.emit('update_devices', database.get_all_devices(), broadcast=True)
+            websocket.emit('update_devices', database.get_all_devices(), 
+                            broadcast=True)
             return database.get_by_id(_id), 201
         except:
             abort(400)

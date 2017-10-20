@@ -12,14 +12,6 @@ class DBManager():
     def new_entry(self, data):
         self.validate_data(data,new=True)
         ip = data['ip']
-        """
-        old_data = self.get_by_ip(ip)
-        if old_data:
-            _id = json.loads(old_data)['id']
-        else:
-            _id = int(self.db.get("id_count"))
-            self.db.incr("id_count")
-        """
         _id = int(self.db.get("id_count"))
         self.db.incr("id_count")
         data['id'] = _id
@@ -88,14 +80,6 @@ class DBManager():
         keys.sort()
         for key in keys:
             devices.append(json.loads(self.db.get(key)))
-        device = {}
-        """
-        devices = {}
-        keys = self.db.scan(match="id=*")[1]
-        for key in keys:
-            devices[key.split(":")[0].replace("id=","")] = json.loads(self.db.get(key))
-        """
         return devices
 
 database = DBManager()
-#database.delete_all()
