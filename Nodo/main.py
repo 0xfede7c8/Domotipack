@@ -1,7 +1,7 @@
 import httplib
 import json
 import sys
-import netifaces
+import socket
 import traceback
 
 from api import API, APIListener
@@ -11,11 +11,16 @@ from device.jsons import light_json, alarm_json
 from device.devices.light import Light
 from device.devices.create_device import create_device
 
-API_URL = '192.168.0.15:5000'
+API_URL = '192.168.0.63:5000'
 SOCKET_PORT = 5001
 INTERFACE = 'wlp3s0'
 
-LAN_IP = netifaces.ifaddresses(INTERFACE)[netifaces.AF_INET][0]['addr']
+def get_lan_ip():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(('8.8.8.8',80))
+    return s.getsockname()[0]
+
+LAN_IP = get_lan_ip()
 
 devices_to_register = [light_json(LAN_IP), alarm_json(LAN_IP), 
                        light_json(LAN_IP)]
