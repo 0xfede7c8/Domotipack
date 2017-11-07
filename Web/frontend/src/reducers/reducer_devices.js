@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-export const URL = 'http://localhost:5000';
+const HOST_IP = document.getElementById("hostip").innerHTML;
+export const URL = "http://".concat(HOST_IP.concat(':5000'));
 export const URL_API = URL + "/api/devices";
 export const FETCH_DEVICES = 'devices/FETCH_DEVICES';
 export const UPDATE_DEVICE = 'devices/UPDATE_DEVICE';
