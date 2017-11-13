@@ -11,7 +11,7 @@ from device.jsons import light_json, alarm_json
 from device.devices.light import Light
 from device.devices.create_device import create_device
 
-API_URL = '192.168.0.63:5000'
+API_URL = 'domotipack.local:5000'
 SOCKET_PORT = 5001
 INTERFACE = 'wlp3s0'
 
