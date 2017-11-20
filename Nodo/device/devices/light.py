@@ -2,6 +2,7 @@ from ..device import Device
 from time import sleep
 import RPi.GPIO as GPIO
 import time
+GPIO.cleanup() ## Hago una limpieza de los GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(17, GPIO.OUT) ## GPIO 17 como salida
 GPIO.setup(27, GPIO.OUT) ## GPIO 27 como salida
@@ -10,13 +11,10 @@ class Light(Device):
 
     def __init__(self, *args):
         Device.__init__(self, *args)
-        self.on = 
 
     #when a change is made from the web
     def apply_state(self):
-        pass
-        #GPIO.cleanup() ## Hago una limpieza de los GPIO
-        
+        pass        
     #monitors changes from the devices
     def monitor_changes(self):
         #self.state['state']['value'] += 10
