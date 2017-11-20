@@ -13,13 +13,16 @@ class Light(Device):
 
     #when a change is made from the web
     def apply_state(self):
-             
-        print self.state["ip"]
-        GPIO.output(17, True) ## Enciendo el 17
-        time.sleep(1) ## Esperamos 1 segundo
-        #GPIO.output(17, False) ## Apago el 17
-        GPIO.cleanup() ## Hago una limpieza de los GPIO
+        
+        if self.state["state"]["on"]:
+            print "Encendido."          
+            GPIO.output(17, True) ## Enciendo el 17
+        else if !self.state["state"]["on"]:
+            print "Apagado."
+            GPIO.output(17, False) ## Apago el 17
 
+        GPIO.cleanup() ## Hago una limpieza de los GPIO
+        
     #monitors changes from the devices
     def monitor_changes(self):
         for i in range(10):
