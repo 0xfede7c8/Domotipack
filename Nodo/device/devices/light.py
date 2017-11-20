@@ -24,8 +24,7 @@ class Light(Device):
         #self.devices_state.set_device(self.state, notify_server=True) 
 
     def strobe(self, width):
-        print width
-        factor = 2000.0
+        factor = 5000.0
         GPIO.output(17, True) ## Enciendo el 17
         timeoff =  100.0 - width
         sleep(width / factor)
