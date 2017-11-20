@@ -1,9 +1,8 @@
-from ..device import Device
+from ..device import *
 from time import sleep
 import RPi.GPIO as GPIO
 import time
 
-GPIO.setmode(GPIO.BCM)
 GPIO.setup(17, GPIO.OUT) ## GPIO 17 como salida
 
 class Light(Device):
