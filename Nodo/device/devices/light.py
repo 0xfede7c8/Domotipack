@@ -2,10 +2,9 @@ from ..device import Device
 from time import sleep
 import RPi.GPIO as GPIO
 import time
-GPIO.cleanup() ## Hago una limpieza de los GPIO
+
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(17, GPIO.OUT) ## GPIO 17 como salida
-GPIO.setup(27, GPIO.OUT) ## GPIO 27 como salida
 
 class Light(Device):
 
