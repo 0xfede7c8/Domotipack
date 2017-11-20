@@ -9,4 +9,4 @@ class Alarm(Device):
         print "overwritten apply_state", self.state
 
     def monitor_changes(self):
-        pass
+        sleep(1)

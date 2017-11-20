@@ -3,6 +3,7 @@ import json
 import sys
 import socket
 import traceback
+from time import sleep
 
 from api import API, APIListener
 from device.devices_state import DevicesState
@@ -22,8 +23,7 @@ def get_lan_ip():
 
 LAN_IP = get_lan_ip()
 
-devices_to_register = [light_json(LAN_IP), alarm_json(LAN_IP), 
-                       light_json(LAN_IP)]
+devices_to_register = [light_json(LAN_IP), alarm_json(LAN_IP)]
 
 def main():
     running_threads = []
@@ -44,7 +44,7 @@ def main():
                 running_threads.append(new_device)
         print devices_state.get_state()
         while True:
-            pass
+            sleep(1)
     except KeyboardInterrupt:
         print "interrupted"
         for t in running_threads:

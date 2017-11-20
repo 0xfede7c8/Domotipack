@@ -1,4 +1,5 @@
 import threading
+from time import sleep
 
 class Device(threading.Thread):
     def __init__(self, device_json, devices_state):
@@ -24,4 +25,4 @@ class Device(threading.Thread):
         exit(0)
 
     def monitor_changes(self):
-        pass
+        sleep(1)
