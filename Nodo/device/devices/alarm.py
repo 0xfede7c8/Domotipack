@@ -1,4 +1,4 @@
-from ..device import *
+from ..device import Device
 from time import sleep
 
 import RPi.GPIO as GPIO
