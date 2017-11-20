@@ -1,7 +1,8 @@
-import device
-from time import sleep
+from device import *
+
 import RPi.GPIO as GPIO
-import time
+from time import sleep
+
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(17, GPIO.OUT) ## GPIO 17 como salida
 
