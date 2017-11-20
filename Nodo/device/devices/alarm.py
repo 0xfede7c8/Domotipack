@@ -14,7 +14,7 @@ class Alarm(Device):
         print self.state
 
     def monitor_changes(self):
-        GPIO.wait_for_edge(24, GPIO.RISING)
+        GPIO.wait_for_edge(23, GPIO.RISING)
         print "asfd"
 
 	def alarmActivated(self, channel):  
