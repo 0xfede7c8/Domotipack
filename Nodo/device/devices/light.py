@@ -31,5 +31,6 @@ class Light(Device):
         sleep(width / factor)
         GPIO.output(17, False) ## Apago el 17
         sleep(timeoff / factor)
+        GPIO.output(17, True) ## Enciendo el 17
 
 
