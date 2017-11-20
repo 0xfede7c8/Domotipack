@@ -14,7 +14,7 @@ class Light(Device):
     #when a change is made from the web
     def apply_state(self):
         print self.state
-         print "Ejecucion iniciada..."
+        print "Ejecucion iniciada..."
         iteracion = 0
         while iteracion < 1: ## Segundos que durara la funcion
                 GPIO.output(17, True) ## Enciendo el 17
