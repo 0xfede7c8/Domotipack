@@ -12,14 +12,17 @@ class Light(Device):
         Device.__init__(self, *args)
 
     def apply_state(self):
+        if self.state["state"]["on"]:
+            print "Luz encendida."
+        else:
+            print "Luz apagada."
+        print self.state["value"]
         pass        
     
     def monitor_changes(self):
         if self.state["state"]["on"]:
-            print "Luz encendida."
             self.strobe(self.state["state"]["value"])
         else:
-            print "Luz apagada."
             GPIO.output(17, False)
         
     def strobe(self, width):
