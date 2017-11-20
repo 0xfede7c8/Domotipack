@@ -20,7 +20,7 @@ class Light(Device):
         #self.state['state']['value'] += 10
         if self.state["state"]["on"]:
             self.strobe(self.state["state"]["value"])
-        else
+        else:
             GPIO.output(17, False) ## Apago el 17
         #self.devices_state.set_device(self.state, notify_server=True) 
 
