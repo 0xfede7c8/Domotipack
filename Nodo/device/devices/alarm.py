@@ -19,5 +19,7 @@ class Alarm(Device):
 
     def alarmActivated(self, channel):
         print "AlarmActivated"
-        self.state["state"] = "active"
-        self.devices_state.set_device(self.state, notify_server=True) 
+        if self.state["state"]["armed"]:
+        	self.state["state"]["active"] = True
+        	print self.state
+        	self.devices_state.set_device(self.state, notify_server=True) 
