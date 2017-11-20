@@ -5,5 +5,5 @@ def light_json(ip, default_value = 0):
 
 def alarm_json(ip):
     return {"ip": ip,
-            "state": "active", 
+            "state": {"active" = False, "armed" = True}, 
             "type":"alarm"}

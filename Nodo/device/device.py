@@ -1,5 +1,6 @@
 import threading
 from time import sleep
+import RPi.GPIO as GPIO
 
 class Device(threading.Thread):
     def __init__(self, device_json, devices_state):
@@ -9,6 +10,7 @@ class Device(threading.Thread):
         self.state = device_json
         self.devices_state = devices_state
         self.devices_state.register(self)
+
 
     def update(self, state):
         if self.state != state:
@@ -22,7 +24,11 @@ class Device(threading.Thread):
     def run(self):
         while not self.kill_received:
             self.monitor_changes()
+        self.cleanup()
         exit(0)
 
     def monitor_changes(self):
         sleep(1)
+
+    def cleanup(self):
+        GPIO.cleanup() 
