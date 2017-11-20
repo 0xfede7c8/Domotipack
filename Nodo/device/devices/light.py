@@ -25,7 +25,7 @@ class Light(Device):
 
     def strobe(self, width):
         print width
-        factor = 100
+        factor = 50
         GPIO.output(17, True) ## Enciendo el 17
         timeoff =  100 - width
         sleep(width / factor)
