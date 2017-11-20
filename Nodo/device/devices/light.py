@@ -17,7 +17,7 @@ class Light(Device):
         if self.state["state"]["on"]:
             print "Encendido."          
             GPIO.output(17, True) ## Enciendo el 17
-        elif !self.state["state"]["on"]:
+        elif not self.state["state"]["on"]:
             print "Apagado."
             GPIO.output(17, False) ## Apago el 17
 
