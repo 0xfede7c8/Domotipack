@@ -21,7 +21,7 @@ class Light(Device):
             print "Apagado."
             GPIO.output(17, False) ## Apago el 17
 
-        GPIO.cleanup() ## Hago una limpieza de los GPIO
+        #GPIO.cleanup() ## Hago una limpieza de los GPIO
         
     #monitors changes from the devices
     def monitor_changes(self):
