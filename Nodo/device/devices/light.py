@@ -17,7 +17,7 @@ class Light(Device):
             print "Luz encendida."
         else:
             print "Luz apagada."
-        print self.state["value"]
+        print self.state["state"]["value"]
         pass        
     
     def monitor_changes(self):
