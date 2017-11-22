@@ -32,6 +32,7 @@ class Light(Device):
         sleep(width / factor)
         GPIO.output(light_pin, False)
         sleep(timeoff / factor)
-        GPIO.output(light_pin, True)
+        if width > 3:
+            GPIO.output(light_pin, True)
 
 
