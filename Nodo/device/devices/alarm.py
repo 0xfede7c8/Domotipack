@@ -14,14 +14,17 @@ class Alarm(Device):
         GPIO.add_event_detect(alarm_pin, GPIO.RISING, callback=self.alarmActivated, bouncetime=300)
 
     def apply_state(self):
-        print self.state
+        if not self.state["state"]["armed"]:
+            self.state["state"]["active"] = False
+            self.devices_state.set_device(self.state, notify_server=True)
+            print "Alarma desactivado"
 
     def monitor_changes(self):
         sleep(1)
 
     def alarmActivated(self, channel):
-        print "Sensor Activado."
+        print "Movimiento detectado"
         if self.state["state"]["armed"]:
         	self.state["state"]["active"] = True
         	self.devices_state.set_device(self.state, notify_server=True) 
-        	print "Notifico al concentrador."
+        	print "Alarma activada"
