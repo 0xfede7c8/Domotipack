@@ -18,7 +18,6 @@ class Light(Device):
         else:
             print "Luz apagada."
         print self.state["state"]["value"]
-        pass        
     
     def monitor_changes(self):
         if self.state["state"]["on"]:
@@ -27,9 +26,9 @@ class Light(Device):
             GPIO.output(light_pin, False)
         
     def strobe(self, width):
-        factor = 5000.0
-        GPIO.output(light_pin, True)
+        factor = 10000.0
         timeoff =  100.0 - width
+        GPIO.output(light_pin, True)
         sleep(width / factor)
         GPIO.output(light_pin, False)
         sleep(timeoff / factor)
