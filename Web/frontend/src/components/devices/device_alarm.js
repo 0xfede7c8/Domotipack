@@ -23,11 +23,12 @@ export default class Alarm extends Component {
                     <div className="col-md-6">
                         <Toggle 
                             onToggle={this.handleToggle.bind(this)}
+                            toggled={this.props.device.state.armed}
                         />
                     </div>
                 </div>
                 <div className="row">
-                    {this.props.device.state.active}
+                   ACTIVE={this.props.device.state.active.toString()}
                 </div>
             </div>
         );
