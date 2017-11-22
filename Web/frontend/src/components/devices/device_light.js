@@ -3,17 +3,6 @@ import Slider from 'material-ui/Slider';
 import Toggle from 'material-ui/Toggle';
 
 export default class Light extends Component{
-    
-    constructor(props){
-        super(props);
-        this.state = {
-            slider_enabled : props.device.state.on
-        }
-    }
-
-    handleSliderDivClick(event){
-        this.setState({slider_enabled: true});
-    }
 
     handleSlider(event, new_value){
         var not_zero = new_value != 0
@@ -24,7 +13,6 @@ export default class Light extends Component{
     }
 
     handleToggle(event, is_checked){
-        this.setState({slider_enabled: is_checked});
         const device_state= Object.assign(this.props.device.state, {on:is_checked});
         const device = Object.assign(this.props.device,{state: device_state});
         this.props.onStateChange(device);
@@ -46,11 +34,11 @@ export default class Light extends Component{
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-12" onClick={this.handleSliderDivClick.bind(this)}>
+                    <div className="col-md-12">
                         <Slider 
                             onChange={this.handleSlider.bind(this)}
                             value = {this.props.device.state.value}
-                            disabled = {this.state.slider_enabled}
+                            disableFocusRipple = {!this.props.device.state.on}
                             max = {100}
                             step = {1}
                         />
