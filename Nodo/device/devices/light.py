@@ -3,8 +3,9 @@ from ..device import Device
 import RPi.GPIO as GPIO
 from time import sleep
 
+light_pin = 17
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(17, GPIO.OUT) ## GPIO 17 como salida
+GPIO.setup(light_pin, GPIO.OUT) ## GPIO 17 como salida
 
 class Light(Device):
 
@@ -23,15 +24,15 @@ class Light(Device):
         if self.state["state"]["on"]:
             self.strobe(self.state["state"]["value"])
         else:
-            GPIO.output(17, False)
+            GPIO.output(light_pin, False)
         
     def strobe(self, width):
         factor = 5000.0
-        GPIO.output(17, True)
+        GPIO.output(light_pin, True)
         timeoff =  100.0 - width
         sleep(width / factor)
-        GPIO.output(17, False)
+        GPIO.output(light_pin, False)
         sleep(timeoff / factor)
-        GPIO.output(17, True)
+        GPIO.output(light_pin, True)
 
 
