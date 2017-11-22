@@ -38,6 +38,7 @@ export default class Light extends Component{
                         <Slider 
                             onChange={this.handleSlider.bind(this)}
                             value = {this.props.device.state.value}
+                            disableFocusRipple = {!this.props.device.state.on}
                             max = {100}
                             step = {1}
                         />
