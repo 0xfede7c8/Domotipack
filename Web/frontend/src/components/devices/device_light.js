@@ -16,6 +16,7 @@ export default class Light extends Component{
         var new_value;
         if (is_checked){new_value = 100;}
         else{new_value = 0;}
+        this.props.device.state.value = new_value;
         const device_state= Object.assign(this.props.device.state,
             {value: new_value, on:is_checked});
         const device = Object.assign(this.props.device,{state: device_state});
