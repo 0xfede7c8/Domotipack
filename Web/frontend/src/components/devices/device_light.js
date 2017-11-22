@@ -13,7 +13,11 @@ export default class Light extends Component{
     }
 
     handleToggle(event, is_checked){
-        const device_state= Object.assign(this.props.device.state, {on:is_checked});
+        var new_value;
+        if (is_checked){new_value = 100;}
+        else{new_value = 0;}
+        const device_state= Object.assign(this.props.device.state,
+            {value: new_value, on:is_checked});
         const device = Object.assign(this.props.device,{state: device_state});
         this.props.onStateChange(device);
     }
