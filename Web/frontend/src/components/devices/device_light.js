@@ -5,13 +5,10 @@ import Toggle from 'material-ui/Toggle';
 export default class Light extends Component{
 
     handleSlider(event, new_value){
-        /*
         var not_zero = new_value != 0
         const device_state= Object.assign(this.props.device.state,
             {value:new_value, on:not_zero});
         const device = Object.assign(this.props.device,{state: device_state});
-        */
-        this.props.device.state.on = new_value != 0;
         this.props.onStateChange(this.props.device);
     }
 
