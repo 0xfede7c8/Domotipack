@@ -3,9 +3,11 @@ from ..device import Device
 import RPi.GPIO as GPIO
 from time import sleep
 
-light_pin = 17
+light_pin = 24
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(light_pin, GPIO.OUT) ## GPIO 17 como salida
+led = GPIO.PWM(light_pin, 0)
+led.start(0)
 
 class Light(Device):
 
@@ -26,12 +28,13 @@ class Light(Device):
             GPIO.output(light_pin, False)
         
     def strobe(self, width):
-        factor = 5000.0
+        """factor = 5000.0
         timeoff =  100.0 - width
         GPIO.output(light_pin, True)
         sleep(width / factor)
         GPIO.output(light_pin, False)
         sleep(timeoff / factor)
         GPIO.output(light_pin, True)
-
+        """
+        led.ChangeDutyCycle(width)
 
