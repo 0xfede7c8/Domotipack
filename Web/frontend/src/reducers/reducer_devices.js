@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const HOST_IP = document.getElementById("hostip").innerHTML;
+//const HOST_IP = "192.168.0.16"
 export const URL = "http://".concat(HOST_IP.concat(':5000'));
 export const URL_API = URL + "/api/devices";
 export const FETCH_DEVICES = 'devices/FETCH_DEVICES';

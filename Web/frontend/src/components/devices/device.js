@@ -1,10 +1,12 @@
 import React from 'react';
 import Alarm from './device_alarm';
 import Light from './device_light';
+import THSensor from './device_thsensor';
 import { Card, CardHeader, CardText} from 'material-ui/Card';
 
 const LIGHT = 'light';
 const ALARM = 'alarm';
+const THSENSOR = 'thsensor';
 
 export default function(props){
     var device;
@@ -17,6 +19,12 @@ export default function(props){
             break;
         case ALARM:
             device = <Alarm
+                        device={props.device}
+                        onStateChange = {props.onStateChange}
+                    />;
+            break;
+        case THSENSOR:
+            device = <THSensor
                         device={props.device}
                         onStateChange = {props.onStateChange}
                     />;

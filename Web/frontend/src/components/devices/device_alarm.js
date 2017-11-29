@@ -1,12 +1,23 @@
 import React, { Component } from 'react'
+import Dialog from 'material-ui/Dialog';
 import Toggle from 'material-ui/Toggle'
+import FlatButton from 'material-ui/FlatButton';
+
 
 export default class Alarm extends Component {
+
     handleToggle(event, is_checked){
         const device_state = Object.assign(this.props.device.state, {armed:is_checked});
         const device = Object.assign(this.props.device,{state: device_state});
         this.props.onStateChange(device);
     }
+
+    handleClose(){
+        const device_state = Object.assign(this.props.device.state, {armed:false});
+        const device = Object.assign(this.props.device,{state: device_state});
+        this.props.onStateChange(device);
+    }
+
     handleSlider(event, new_value){
         const device_state= Object.assign(this.props.device.state, {value:new_value});
         const device = Object.assign(this.props.device,{state: device_state});
@@ -14,6 +25,13 @@ export default class Alarm extends Component {
     }
 
     render(){
+    const actions = [
+      <FlatButton
+        label="Desactivar"
+        primary={true}
+        onClick={this.handleClose.bind(this)}
+      />,
+    ];
         return (
             <div>
                 <div className="row">
@@ -27,9 +45,14 @@ export default class Alarm extends Component {
                         />
                     </div>
                 </div>
-                <div className="row">
-                   ACTIVE={this.props.device.state.active.toString()}
-                </div>
+        <Dialog
+          title="Alarma Activada"
+		  actions={actions}
+          modal={true}
+          open={this.props.device.state.active}
+          onRequestClose={this.handleClose}
+        >
+        </Dialog>
             </div>
         );
     }
