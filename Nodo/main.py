@@ -8,7 +8,7 @@ from time import sleep
 from api import API, APIListener
 from device.devices_state import DevicesState
 from device.device import Device
-from device.jsons import light_json, alarm_json, dht11_json
+from device.jsons import light_json, alarm_json, thsensor_json
 from device.devices.light import Light
 from device.devices.create_device import create_device
 
@@ -24,8 +24,7 @@ def get_lan_ip():
 LAN_IP = get_lan_ip()
 
 devices_to_register = [light_json(LAN_IP), alarm_json(LAN_IP), 
-                       dht11_json(LAN_IP)]
-
+                       thsensor_json(LAN_IP)]
 def main():
     running_threads = []
     api = API(API_URL)
@@ -40,7 +39,6 @@ def main():
             if registered_device:
                 devices_state.set_device(registered_device)
                 new_device = create_device(registered_device, devices_state)
-#                new_device = Light(registered_device, devices_state)
                 new_device.start()
                 running_threads.append(new_device)
         print devices_state.get_state()

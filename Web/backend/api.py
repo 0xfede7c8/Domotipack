@@ -23,12 +23,13 @@ def keepalive_beat():
     for device in devices:
         try:
             device_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            device_socket.settimeout(0.5)
-            device_socket.connect((device['ip'],SOCKET_PORT))
+            device_socket.settimeout(2)
+            device_socket.connect((device['ip'], SOCKET_PORT))
             keepalive_json = {'type': 'keepalive', 'id': device['id']}
             device_socket.send(json.dumps(keepalive_json))
             response = device_socket.recv(size)
             if response == "DEAD":
+                print "DEAD -----------------------------_"
                 database.delete_by_id(device['id'])
         except:
             database.delete_by_id(device['id'])
