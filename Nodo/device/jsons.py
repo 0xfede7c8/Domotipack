@@ -7,3 +7,8 @@ def alarm_json(ip):
     return {"ip": ip,
             "state": {"active": False, "armed": False}, 
             "type":"alarm"}
+
+def dht11_json(ip):
+    return {"ip": ip,
+            "state": {},
+            "type": "dht11"
