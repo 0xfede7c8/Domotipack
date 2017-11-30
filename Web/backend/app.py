@@ -5,7 +5,8 @@ from flask_cors import CORS
 from flask import Blueprint
 import socket
 
-app = Flask(__name__, template_folder='public')
+app = Flask(__name__, template_folder='public',
+            static_folder='public/static')
 app.register_blueprint(api_bp, url_prefix='/api')
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
