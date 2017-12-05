@@ -25,7 +25,7 @@ class API():
         connection.request("PUT", "/api/devices/" + str(_id),
                                 json.dumps(device_json))
         res = connection.getresponse()
-        print res.status
+        #print res.status
         
 
 class APIListener(threading.Thread):
